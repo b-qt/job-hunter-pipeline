@@ -1,4 +1,4 @@
-# 📰 Spain News & Job Monitor 2026
+# 📰 (Northern) Spain Job Monitor 2026
 
 ![Status](https://img.shields.io/badge/Status-Live%20Refinery-success?style=for-the-badge&logo=statuspage)
 ![Market](https://img.shields.io/badge/Focus-Bilbao%20%26%20Gijón-blue?style=for-the-badge&logo=googlemaps)
@@ -79,3 +79,4 @@ This project represents a commitment to **Ethics in Engineering** and **Sustaina
 **Built with ☕ in Poblenou. Relocating to 🌲 Bilbao soon.**
 
 ---
+

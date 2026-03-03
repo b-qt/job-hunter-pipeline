@@ -1,0 +1,12 @@
+FROM mageai/mageai:latest
+
+COPY jobs_monitor_mage/requirements.txt /home/src/requirements.txt
+
+RUN pip3 install -r /home/src/requirements.txt
+
+# <------ THE STRUCTURE OF A DOCKERFILE ------>   
+# Call the base image to use to start the build process <FROM mageai/mageai:latest>
+# Install any dependencies <RUN pip3 install -r /home/src/requirements.txt>
+# Copy what we need to the image <COPY jobs_monitor_mage/requirements.txt /home/src/requirements.txt>
+# Set the working directory <WORKDIR /home/src>
+# Set the default command to run when the container starts <CMD ["python", "app.py"]

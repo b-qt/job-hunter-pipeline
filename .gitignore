@@ -1,0 +1,19 @@
+# --- ROOT SECURITY ---
+venv/
+__pycache__/
+*.py[cod]
+.env
+.DS_Store
+
+# Mage Internal Garbage
+mage_data/
+**/.variables/
+**/.cache/
+.mage_variables.json
+.preferences.yaml
+
+# Data Storage
+data/
+*.duckdb
+*.db
+logs/

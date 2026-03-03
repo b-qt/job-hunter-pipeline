@@ -1,0 +1,12 @@
+version: '1.0'
+services:
+  orchestrator:
+    image: mageai/mageai:latest
+    container_name: jobs_monitor_mage
+    ports:
+      - "6789:6789"
+    volumes:
+      - .:/home/src
+    environment:
+      USER_CODE_PATH: /home/src/jobs_monitor_mage
+      # Set the data path as wee so there isn't a mage_data directory

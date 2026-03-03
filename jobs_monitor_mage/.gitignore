@@ -1,0 +1,37 @@
+.DS_Store
+.file_versions
+.gitkeep
+.log
+.logs/
+.mage_temp_profiles
+.preferences.yaml
+.variables/
+__pycache__/
+docker-compose.override.yml
+logs/
+mage-ai.db
+secrets/
+
+venv/
+
+data/
+default_repo/
+mage_data/
+
+
+# Mage internal data - NEVER track this
+mage_data/
+**/.variables/
+**/.cache/
+**/__pycache__/
+
+# Local Environment
+venv/
+.env
+
+# Data files (Optional: keep if you want the sample, but usually ignore)
+data/*.duckdb
+# data/linkedin_insights.json # Uncomment if you want this ignored too
+
+# Misc
+.DS_Store

@@ -1,0 +1,12 @@
+{
+    "name": "Mage & dbt Environment",
+    "dockerComposeFile": "../docker-compose.yml",
+    "service": "orchestrator",
+    "workspaceFolder": "/home/src",
+    "forwardPorts": [6789, 8501],
+    "customizations": {
+        "vscode": {
+            "extensions": ["dbt-labs.dbt-vscode", "ms-python.python"]
+        }
+    }
+}

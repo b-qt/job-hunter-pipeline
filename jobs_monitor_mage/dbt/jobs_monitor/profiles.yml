@@ -1,0 +1,13 @@
+# Create a dbt profile for the jobs_monitor_mage project database connections
+
+jobs_monitor:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: database
+      port: 5432
+      user: ${POSTGRES_USER}
+      password: ${POSTGRES_PASSWORD}
+      dbname: ${POSTGRES_DB}
+      schema: public

@@ -36,14 +36,10 @@ class JobIngestor:
             query = f'"{keyword}" "{location}" jobs site:{site}'# after:{cutoff_date}'
             encoded_query = urllib.parse.quote_plus(query).replace("%20","+")
 
-            print(f"\t\t{base}{encoded_query}&hl=es&gl=ES&ceid=ES:es")
+            #print(f"\t\t{base}{encoded_query}&hl=es&gl=ES&ceid=ES:es")
 
             yield f"{base}{encoded_query}&hl=es&gl=ES&ceid=ES:es"
             yield f"{base}{encoded_query}&hl=en&gl=ES&ceid=ES:en"
-    
-    #https://news.google.com/rss/search?q=site%3Alinkedin.com%2Fjobs+%22data+engineer%22+%22bizkaia%22+&hl=es&gl=ES&ceid=ES:es
-    #https://news.google.com/res/search?q=site%3Alinkedin.com%2Fjobs+%22data+engineer%22+bizkaia+after%3A10&hl=es&gl=ES&ceid=ES:es
-
 
     def _parse_entry(self, entry, location, site):
         title = entry.get("title", "Unknown")

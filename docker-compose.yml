@@ -1,4 +1,3 @@
-version: '1.0'
 services:
   orchestrator:
     image: mageai/mageai:latest
@@ -7,11 +6,15 @@ services:
       - "6789:6789"
     volumes:
       - .:/home/src
+    env_file:
+      - .env
     environment:
       USER_CODE_PATH: /home/src/jobs_monitor_mage
       # Set the data path as wee so there isn't a mage_data directory
       MAGE_DATA_PATH: /home/src/jobs_monitor_mage/data
-  database:
+    depends_on:
+      - data-controller
+  data-controller:
     image: postgres:latest
     container_name: jobs_monitor_db
     environment:
@@ -20,5 +23,5 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
       - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+    #volumes:
+    #  - postgres_data:/var/lib/postgresql/data

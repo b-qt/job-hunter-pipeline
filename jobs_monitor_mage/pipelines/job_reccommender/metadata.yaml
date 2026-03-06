@@ -2,18 +2,82 @@ blocks:
 - all_upstream_blocks_executed: true
   color: null
   configuration: {}
-  downstream_blocks: []
+  downstream_blocks:
+  - dbt/jobs_monitor/models/example/my_first_dbt_model
+  - export_json__database
   executor_config: null
   executor_type: local_python
   has_callback: false
   language: python
-  name: pull_data
+  name: load_data__rss
   retry_config: null
-  status: updated
+  status: executed
   timeout: null
   type: data_loader
   upstream_blocks: []
-  uuid: pull_data
+  uuid: load_data__rss
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - dbt/jobs_monitor/models/example/my_first_dbt_model
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: export_json__database
+  retry_config: null
+  status: executed
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - load_data__rss
+  uuid: export_json__database
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    dbt_project_name: dbt/jobs_monitor
+    file_path: dbt/jobs_monitor/models/example/my_first_dbt_model.sql
+    file_source:
+      path: dbt/jobs_monitor/models/example/my_first_dbt_model.sql
+      project_path: dbt/jobs_monitor
+    limit: 1000
+  downstream_blocks:
+  - dbt/jobs_monitor/models/example/my_second_dbt_model
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: dbt/jobs_monitor/models/example/my_first_dbt_model
+  retry_config: null
+  status: failed
+  timeout: null
+  type: dbt
+  upstream_blocks:
+  - export_json__database
+  uuid: dbt/jobs_monitor/models/example/my_first_dbt_model
+- all_upstream_blocks_executed: false
+  color: null
+  configuration:
+    dbt_project_name: dbt/jobs_monitor
+    file_path: dbt/jobs_monitor/models/example/my_second_dbt_model.sql
+    file_source:
+      path: dbt/jobs_monitor/models/example/my_second_dbt_model.sql
+      project_path: dbt/jobs_monitor
+    limit: 1000
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: dbt/jobs_monitor/models/example/my_second_dbt_model
+  retry_config: null
+  status: not_executed
+  timeout: null
+  type: dbt
+  upstream_blocks:
+  - dbt/jobs_monitor/models/example/my_first_dbt_model
+  uuid: dbt/jobs_monitor/models/example/my_second_dbt_model
 cache_block_output_in_memory: false
 callbacks: []
 concurrency_config: {}

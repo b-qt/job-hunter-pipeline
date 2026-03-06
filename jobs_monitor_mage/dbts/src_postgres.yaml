@@ -1,0 +1,8 @@
+sources:
+    - name: internal_postgres
+      database: " {{ env_var('POSTGRES_DB')}}"
+      schema: "{{ env_var('POSTGRES_SCHEMA')}}"
+      tables:
+        - name: "{{ env_var('POSTGRES_TABLE')}}"
+          description: "Raw job postings from select sources"
+          loaded_at_field: scraped_at

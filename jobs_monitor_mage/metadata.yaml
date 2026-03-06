@@ -1,5 +1,4 @@
 project_type: standalone
-dbt_project_full_path: /home/src/jobs_monitor_dbt
 
 variables_dir: ~/.mage_data
 # remote_variables_dir: s3://bucket/path_prefix
@@ -54,3 +53,6 @@ notification_config:
   teams_config:
     webhook_url: "{{ env_var('MAGE_TEAMS_WEBHOOK_URL') }}"
 project_uuid: 84a4bfb957fd4768a4abd6d8c6811a86
+
+dbt_project_full_path: /home/src/jobs_monitor_mage/dbt/jobs_monitor
+dbt_profiles_dir: /home/src/jobs_monitor_mage/dbt/jobs_monitor

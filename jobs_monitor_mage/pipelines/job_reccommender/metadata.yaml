@@ -33,7 +33,7 @@ blocks:
   upstream_blocks:
   - load_data__rss
   uuid: export_json__database
-- all_upstream_blocks_executed: true
+- all_upstream_blocks_executed: false
   color: null
   configuration:
     dbt_project_name: dbt/jobs_monitor

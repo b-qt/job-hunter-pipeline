@@ -26,22 +26,19 @@ class JobIngestor:
         self.time_span = time_span
         self.seen_entries = set()
 
-    def _generate_rss_url(self, location, site):
+    def _generate_rss_url(self, location, site) -> str:
         site = site.replace("site:","").split("/")[0]
         base = "https://news.google.com/rss/search?q="
         cutoff_date = (datetime.now() - timedelta(days=self.time_span)).strftime("%Y-%m-%d")
 
         for keyword in self.keywords:
-            #query = f'{site} "{keyword.lower()}" "{location.lower()}" after:{cutoff_date}'
-            query = f'"{keyword}" "{location}" jobs site:{site}'# after:{cutoff_date}'
+            query = f'"{keyword}" "{location}" jobs site:{site}'
             encoded_query = urllib.parse.quote_plus(query).replace("%20","+")
-
-            #print(f"\t\t{base}{encoded_query}&hl=es&gl=ES&ceid=ES:es")
 
             yield f"{base}{encoded_query}&hl=es&gl=ES&ceid=ES:es"
             yield f"{base}{encoded_query}&hl=en&gl=ES&ceid=ES:en"
 
-    def _parse_entry(self, entry, location, site):
+    def _parse_entry(self, entry, location, site) -> dict | None:
         title = entry.get("title", "Unknown")
         link = entry.get("link", "")
         published_raw = entry.published
@@ -50,8 +47,7 @@ class JobIngestor:
 
         try:
             published = pd.to_datetime(published_raw).strftime("%Y-%m-%d %H:%M:%S")
-
-            if published < cutoff_date:
+            if published.tz_localize(None) < cutoff_date.tz_localize(None):
                 return None
         except:
             published = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -62,7 +58,7 @@ class JobIngestor:
             "published": published,
             "location": location,
             "platform": site.replace("site:",""),
-            "scarped_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            "scraped_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         }
     
     def execute_refinery(self):
@@ -71,17 +67,25 @@ class JobIngestor:
         for site in self.sites:
             for location in self.locations:
                 for url in self._generate_rss_url(location, site):
-                    time.sleep(1)
-                    feed = feedparser.parse(url)
+                    try:
+                        time.sleep(1) # Error handling for --- API rate limiting
+                        feed = feedparser.parse(url)
+                        
+                        if feed.bozo: # Error handling for --- Malformed feed or parsing issues
+                            raise Exception(f"⚠️ Error parsing feed: {feed.bozo_exception}")
 
-                    for entry in feed.entries:
-                        link = entry.link
-                        if link not in self.seen_entries:
-                            parsed = self._parse_entry(entry, location, site)
+                        for entry in feed.entries:
+                            link = entry.link
+                            if link not in self.seen_entries:
+                                parsed = self._parse_entry(entry, location, site)
 
-                            if parsed:
-                                results.append(parsed)
-                                self.seen_entries.add(link)
+                                if parsed:
+                                    results.append(parsed)
+                                    self.seen_entries.add(link)
+                    
+                    except Exception as e:
+                        raise e
+
         return results
 
 @data_loader
@@ -117,21 +121,29 @@ def load_data_from_api(*args, **kwargs):
     df = pd.DataFrame(data)
 
     json_path = "/home/src/data/linkedin_insights.json"
-    try:
+    try: # Error handling for --- Environment issues 
         os.makedirs(os.path.dirname(json_path), exist_ok=True)
         df.to_json(json_path, orient="records", indent=4, force_ascii=False)
         print(f"✅ Successfully captured {len(df)} items.")
     except Exception as e:
-        print(f"❌ Storage error: {e}")
+        print(f"❌ Storage error: {e}") 
 
     return df
 
 
 @test
 def test_output(output, *args) -> None:
-    """
-    Template code for testing the output of the block.
-    """
     assert output is not None, 'The output is undefined'
     assert isinstance(output, pd.DataFrame), "Output should be a pandas Dataframe"
     assert len(output) > 1 , 'The dataframe is empty, no data collected'
+    # Check for expected columns
+    expected_columns = {"title", "link", "published", "location", "platform", "scraped_at"}
+    assert expected_columns.issubset(set(output.columns)), f"Missing expected columns: {expected_columns - set(output.columns)}"
+    # Check for non-empty values in key columns
+    for col in ["title", "link", "published"]:
+        assert output[col].notnull().all(), f"Column '{col}' contains null values"
+        assert (output[col].str.strip() != "").all(), f"Column '{col}' contains empty strings"
+    # Check for non-empty values in the 'scraped_at' column
+    assert output["scraped_at"].notnull().all(), f"Column 'scraped_at' contains null values"
+    assert (output["scraped_at"].str.strip() != "").all(), f"Column 'scraped_at' contains empty strings"
+    

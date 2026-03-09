@@ -5,9 +5,10 @@ jobs_monitor:
   outputs:
     dev:
       type: postgres
-      host: database
+      host: "{{ env_var('POSTGRES_HOST', 'localhost') }}"
       port: 5432
-      user: ${POSTGRES_USER}
-      password: ${POSTGRES_PASSWORD}
-      dbname: ${POSTGRES_DB}
-      schema: public
+      user: "{{ env_var('POSTGRES_USER', 'admin') }}"
+      password: "{{ env_var('POSTGRES_PASSWORD') }}"
+      dbname: "{{ env_var('POSTGRES_DB') }}"
+      schema: "{{ env_var('POSTGRES_SCHEMA', 'public') }}"
+      threads: 4

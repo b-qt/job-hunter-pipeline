@@ -7,7 +7,7 @@
 - [x] Store the data in a PostgreSQL database for easy querying and integration with the rest of the pipeline.
 
 # 2. DBT Model (Transformation and Business Logic)
-- [] Integrate the DBT model with the data loader to create a seamless data pipeline from ingestion to transformation.
+- [x] Integrate the DBT model with the data loader to seamlessly move data from raw storage into database tables.
 - [] Implement quality tests in DBT to ensure data integrity and consistency (e.g., no duplicates, valid date formats).
 - [] Sort the model to be structured around the specific business logic (finding job listings categorized by region and company) into staging, intermediate and marts.
 - [] In the staging layer, create models that clean and standardize the raw data (e.g., removing duplicates, fixing date formats).

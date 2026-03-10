@@ -4,6 +4,7 @@ services:
     container_name: jobs_monitor_orchestrator
     ports:
       - "6789:6789"
+      - "8080:8080"
     volumes:
       - .:/home/src
     env_file:

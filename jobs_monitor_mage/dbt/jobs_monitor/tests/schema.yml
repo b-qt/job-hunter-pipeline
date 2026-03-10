@@ -1,0 +1,5 @@
+data_tests:
+  - name: assert_title_is_legible
+    description: >
+      Test to ensure that job titles are legible and do not contain special characters.
+    test: assert_title_is_legible

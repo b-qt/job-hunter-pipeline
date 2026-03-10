@@ -55,7 +55,8 @@ blocks:
       path: dbt/jobs_monitor/models/staging/stg_read_postgres.sql
       project_path: dbt/jobs_monitor
     limit: 1000
-  downstream_blocks: []
+  downstream_blocks:
+  - dbt/jobs_monitor/models/intermediate/int_jobs_cleaned
   executor_config: null
   executor_type: local_python
   has_callback: false
@@ -67,6 +68,51 @@ blocks:
   type: dbt
   upstream_blocks: []
   uuid: dbt/jobs_monitor/models/staging/stg_read_postgres
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    dbt_project_name: dbt/jobs_monitor
+    file_path: dbt/jobs_monitor/models/intermediate/int_jobs_cleaned.sql
+    file_source:
+      path: dbt/jobs_monitor/models/intermediate/int_jobs_cleaned.sql
+      project_path: dbt/jobs_monitor
+    limit: 1000
+  downstream_blocks:
+  - dbt/jobs_monitor/models/intermediate/int_logic__region
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: dbt/jobs_monitor/models/intermediate/int_jobs_cleaned
+  retry_config: null
+  status: executed
+  timeout: null
+  type: dbt
+  upstream_blocks:
+  - dbt/jobs_monitor/models/staging/stg_read_postgres
+  uuid: dbt/jobs_monitor/models/intermediate/int_jobs_cleaned
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    dbt_project_name: dbt/jobs_monitor
+    file_path: dbt/jobs_monitor/models/intermediate/int_logic__region.sql
+    file_source:
+      path: dbt/jobs_monitor/models/intermediate/int_logic__region.sql
+      project_path: dbt/jobs_monitor
+    limit: 1000
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: dbt/jobs_monitor/models/intermediate/int_logic__region
+  retry_config: null
+  status: executed
+  timeout: null
+  type: dbt
+  upstream_blocks:
+  - dbt/jobs_monitor/models/intermediate/int_jobs_cleaned
+  uuid: dbt/jobs_monitor/models/intermediate/int_logic__region
 cache_block_output_in_memory: false
 callbacks: []
 concurrency_config: {}

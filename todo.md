@@ -8,16 +8,13 @@
 
 # 2. DBT Model (Transformation and Business Logic)
 - [x] Integrate the DBT model with the data loader to seamlessly move data from raw storage into database tables.
-- [] Implement quality tests in DBT to ensure data integrity and consistency (e.g., no duplicates, valid date formats).
-- [] Sort the model to be structured around the specific business logic (finding job listings categorized by region and company) into staging, intermediate and marts.
-- [] In the staging layer, create models that clean and standardize the raw data (e.g., removing duplicates, fixing date formats).
-- [] Ensure the DBT model can handle the specific requirements of the project, such as filtering for job-related news and categorizing sentiment.
-- [] Test the DBT model to ensure it correctly transforms the data and passes all quality tests as expected.
-- [] In the intermediate layer, create models that apply the transformations to categorize the news into companies and regions.
-- [] In the marts layer, create models that prepare the final datasets for visualization (e.g., aggregating similar companies, filtering for regions).
-- [] Document the DBT model's functionality and the logic behind the transformations for future reference and maintenance in a dbt/models/README.md file.
-- [] Ensure the DBT model is optimized for performance, especially as the volume of data grows over time.
+- [x] Implement quality tests in DBT to ensure data integrity and consistency (no duplicates, valid date formats).
+- [x] Document the DBT model's functionality and the logic behind the transformations for future reference and maintenance in a dbt/models/README.md file.
 
+# 3. Marts (Visualization and Business Logic)
+_Create marts that prepare the data for visualization, ensuring that it is structured in a way that allows for easy analysis and insights generation. This may involve aggregating similar companies, filtering for specific regions, and categorizing sentiment._
+- [x] Sort the model to be structured around the specific business logic (finding job listings categorized by region and company).
+- [] Generate insights from the data around locations, platforms, job levels, job mode and job_status 
 
 # 3. Orchestration ()
 - [] Automate the data loader to run on a schedule to ensure the data is updated regularly (e.g., every 6 hours).
@@ -28,3 +25,4 @@
 # 4. Updates
 - [] Log the data fetching process for monitoring and debugging purposes.
 - [] Make manual entries possible for future flexibility (e.g., adding new sources or specific keywords).
+- [] Ensure the DBT model is optimized for performance, especially as the volume of data grows over time.

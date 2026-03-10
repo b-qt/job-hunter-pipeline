@@ -43,7 +43,6 @@ A clean <b>Streamlit</b> dashboard serves the final insights on a silver platter
 | Component | Technology | Role |
 | :--- | :--- | :--- |
 | **Automation** | **Mage.ai** | The heartbeat of the factory. |
-| **Brain** | **NLP AI** | Spanish-native sentiment analysis. |
 | **Integrity** | **dbt** | Ensuring every row is tested and unique. |
 | **Storage** | **DuckDB** | Fast, sustainable, local-first database. |
 | **Interface** | **Streamlit** | Turning data into a story. |

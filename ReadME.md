@@ -22,17 +22,12 @@ Our system goes to the markets (LinkedIn, InfoJobs, Google News) every 6 hours t
 </details>
 
 <details>
-<summary><b>Step 2: The AI Enrichment (The Specialist Saucier) 🧠</b></summary>
-A specialized AI reads every headline in native Spanish to determine if the "vibe" is Positive, Neutral, or Negative. No more manual sorting.
-</details>
-
-<details>
-<summary><b>Step 3: The Transformation (The Bouncer) 🕴️</b></summary>
+<summary><b>Step 2: The Transformation (The Bouncer) 🕴️</b></summary>
 Using <b>dbt</b>, we run 13 different quality tests. We remove duplicates and fix messy dates. If the data isn't "Pure" (per 1 Timothy 4:12), it doesn't get served.
 </details>
 
 <details>
-<summary><b>Step 4: The Visualization (The Waiter) 🍷</b></summary>
+<summary><b>Step 3: The Visualization (The Waiter) 🍷</b></summary>
 A clean <b>Streamlit</b> dashboard serves the final insights on a silver platter.
 </details>
 
@@ -44,7 +39,7 @@ A clean <b>Streamlit</b> dashboard serves the final insights on a silver platter
 | :--- | :--- | :--- |
 | **Automation** | **Mage.ai** | The heartbeat of the factory. |
 | **Integrity** | **dbt** | Ensuring every row is tested and unique. |
-| **Storage** | **DuckDB** | Fast, sustainable, local-first database. |
+| **Storage** | **PostgreSQL** | Fast, sustainable, local-first database. |
 | **Interface** | **Streamlit** | Turning data into a story. |
 
 ---
@@ -75,7 +70,10 @@ If you want to see the pipes under the floorboards:
 ### 🏛️ Architect's Note
 > This project represents a commitment to **Ethics in Engineering** built in the winter of 2026 in Barcelona as a strategic bridge to the industrial powerhouses of **Northern Spain**.
 
-<sub>Built with ☕ in :blossom: BCN ... Relocating to 🌲 Bilbao soon.</sub>
+<sub> 
+Built with ☕ in :blossom: BCN ... Relocating to 🌲 Bilbao soon.
+</sub>
+
 ---
 
 

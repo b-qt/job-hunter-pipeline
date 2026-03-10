@@ -2,7 +2,10 @@
 
 ![Status](https://img.shields.io/badge/Status-Live%20Refinery-success?style=for-the-badge&logo=statuspage)
 ![Market](https://img.shields.io/badge/Focus-Bilbao%20%26%20Gijón-blue?style=for-the-badge&logo=googlemaps)
-![AI](https://img.shields.io/badge/AI-Robertuito%20NLP-orange?style=for-the-badge&logo=huggingface)
+![Orchestration](https://img.shields.io/badge/Orchestration-Mage.ai-green?style=for-the-badge&logo=python)
+![DBT](https://img.shields.io/badge/Transformation-dbt-orange?style=for-the-badge&logo=dbt)
+![Visualization](https://img.shields.io/badge/Visualization-Streamlit-red?style=for-the-badge&logo=streamlit)
+
 
 > **"Turning the noise of the Spanish market into high-purity insights."**
 

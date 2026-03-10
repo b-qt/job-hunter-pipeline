@@ -37,8 +37,8 @@ categorized as (
         case
             when location ilike '%remote%' then 'Remote'
             when location ilike '%onsite%' then 'Onsite'
-            else 'Other'
-        end as job_loc, -- categorize the job listing based on the presence of keywords in the location field
+            else 'Other/Hybrid'
+        end as work_mode, -- categorize the job listing based on the presence of keywords in the location field
         case
             when lower(title) like '%senior%' or lower(title) like '%sr%' then 'Senior'
             when lower(title) like '%junior%' or lower(title) like '%jr%' then 'Junior'
@@ -55,6 +55,6 @@ select
     location,
     platform,
     scraped_at,
-    job_loc,
+    work_mode, -- categorized work mode (Remote, Onsite, Other/Hybrid)
     job_level
 from categorized

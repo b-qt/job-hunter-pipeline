@@ -3,3 +3,7 @@ data_tests:
     description: >
       Test to ensure that job titles are legible and do not contain special characters.
     test: assert_title_is_legible
+  - name: assert_workmode_is_necessary
+    description: >
+      Test to ensure that the work_mode column is properly populated with values (Remote, Onsite, Other/Hybrid) for all job listings in the dataset.
+    test: assert_workmode_is_necessary

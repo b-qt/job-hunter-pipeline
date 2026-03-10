@@ -78,7 +78,8 @@ blocks:
       project_path: dbt/jobs_monitor
     limit: 1000
   downstream_blocks:
-  - dbt/jobs_monitor/models/intermediate/int_logic__region
+  - dbt/jobs_monitor/models/marts/fct_job_postings
+  - dbt/jobs_monitor/models/marts/agg_market_insights
   executor_config: null
   executor_type: local_python
   has_callback: false
@@ -91,13 +92,13 @@ blocks:
   upstream_blocks:
   - dbt/jobs_monitor/models/staging/stg_read_postgres
   uuid: dbt/jobs_monitor/models/intermediate/int_jobs_cleaned
-- all_upstream_blocks_executed: true
+- all_upstream_blocks_executed: false
   color: null
   configuration:
     dbt_project_name: dbt/jobs_monitor
-    file_path: dbt/jobs_monitor/models/intermediate/int_logic__region.sql
+    file_path: dbt/jobs_monitor/models/marts/fct_job_postings.sql
     file_source:
-      path: dbt/jobs_monitor/models/intermediate/int_logic__region.sql
+      path: dbt/jobs_monitor/models/marts/fct_job_postings.sql
       project_path: dbt/jobs_monitor
     limit: 1000
   downstream_blocks: []
@@ -105,14 +106,36 @@ blocks:
   executor_type: local_python
   has_callback: false
   language: sql
-  name: dbt/jobs_monitor/models/intermediate/int_logic__region
+  name: dbt/jobs_monitor/models/marts/fct_job_postings
   retry_config: null
   status: executed
   timeout: null
   type: dbt
   upstream_blocks:
   - dbt/jobs_monitor/models/intermediate/int_jobs_cleaned
-  uuid: dbt/jobs_monitor/models/intermediate/int_logic__region
+  uuid: dbt/jobs_monitor/models/marts/fct_job_postings
+- all_upstream_blocks_executed: false
+  color: null
+  configuration:
+    dbt_project_name: dbt/jobs_monitor
+    file_path: dbt/jobs_monitor/models/marts/agg_market_insights.sql
+    file_source:
+      path: dbt/jobs_monitor/models/marts/agg_market_insights.sql
+      project_path: dbt/jobs_monitor
+    limit: 1000
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: dbt/jobs_monitor/models/marts/agg_market_insights
+  retry_config: null
+  status: executed
+  timeout: null
+  type: dbt
+  upstream_blocks:
+  - dbt/jobs_monitor/models/intermediate/int_jobs_cleaned
+  uuid: dbt/jobs_monitor/models/marts/agg_market_insights
 cache_block_output_in_memory: false
 callbacks: []
 concurrency_config: {}

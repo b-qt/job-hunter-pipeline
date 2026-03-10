@@ -21,7 +21,7 @@ select
     location,
     platform,
     scraped_at,
-    job_loc, -- categorized location (Remote, Onsite, Other)
+    work_mode, -- categorized location (Remote, Onsite, Other)
     job_level -- categorized job level (Senior, Junior, Mid-Level/Unspecified)
 from cleaned_data
 order by platform -- partition the data by platform

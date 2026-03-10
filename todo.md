@@ -13,8 +13,9 @@
 
 # 3. Marts (Visualization and Business Logic)
 _Create marts that prepare the data for visualization, ensuring that it is structured in a way that allows for easy analysis and insights generation. This may involve aggregating similar companies, filtering for specific regions, and categorizing sentiment._
-- [x] Sort the model to be structured around the specific business logic (finding job listings categorized by region and company).
-- [] Generate insights from the data around locations, platforms, job levels, job mode and job_status 
+- [x] Sort the model to be structured around the specific business logic (finding job listings categorized by region and company) with a table materialization.
+- [x] Generate insights from the data around locations, platforms, job levels, job mode 
+- [x] Document the marts' functionality and the logic behind the transformations for future reference and maintenance in a dbt/models/README.md file.
 
 # 3. Orchestration ()
 - [] Automate the data loader to run on a schedule to ensure the data is updated regularly (e.g., every 6 hours).
@@ -26,3 +27,4 @@ _Create marts that prepare the data for visualization, ensuring that it is struc
 - [] Log the data fetching process for monitoring and debugging purposes.
 - [] Make manual entries possible for future flexibility (e.g., adding new sources or specific keywords).
 - [] Ensure the DBT model is optimized for performance, especially as the volume of data grows over time.
+- [] Include a job_status column in the database to track the status of each job listing (e.g., active, expired, removed) for better data management and insights generation.

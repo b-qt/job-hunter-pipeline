@@ -76,6 +76,7 @@ If you want to see the pipes under the floorboards:
 ### 🏛️ Architect's Note
 > This project represents a commitment to **Ethics in Engineering** built in the winter of 2026 in Barcelona as a strategic bridge to the industrial powerhouses of **Northern Spain**.
 
-<sub>Built with ☕ in :shitit: BCN ... Relocating to 🌲 Bilbao soon.</sub>
+<sub>Built with ☕ in :blossom: BCN ... Relocating to 🌲 Bilbao soon.</sub>
 ---
+
 

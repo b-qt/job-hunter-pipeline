@@ -149,7 +149,7 @@ blocks:
   language: python
   name: generate_api
   retry_config: null
-  status: updated
+  status: executed
   timeout: null
   type: custom
   upstream_blocks:

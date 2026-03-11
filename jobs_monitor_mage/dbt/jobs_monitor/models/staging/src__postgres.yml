@@ -9,6 +9,9 @@ sources:
         description: "Raw job postings ingested via Mage from LinkedIn and InfoJobs."
         loaded_at_field: scraped_at # Helps with freshness checks
 
+        freshness:
+          warn_after: {count: 12, period: hour} # Warn if data is older than 12 hours
+          error_after: {count: 24, period: hour} # Error if data is older than 24 hours
         # Add basic bouncer checks right at the source!
         columns:
           - name: link

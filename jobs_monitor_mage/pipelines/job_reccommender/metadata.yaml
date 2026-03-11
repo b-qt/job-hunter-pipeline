@@ -125,7 +125,8 @@ blocks:
       path: dbt/jobs_monitor/models/marts/fct_market_insights.sql
       project_path: dbt/jobs_monitor
     limit: 1000
-  downstream_blocks: []
+  downstream_blocks:
+  - generate_api
   executor_config: null
   executor_type: local_python
   has_callback: false
@@ -138,6 +139,22 @@ blocks:
   upstream_blocks:
   - dbt/jobs_monitor/models/intermediate/int_jobs_cleaned
   uuid: dbt/jobs_monitor/models/marts/fct_market_insights
+- all_upstream_blocks_executed: true
+  color: yellow
+  configuration: {}
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: generate_api
+  retry_config: null
+  status: updated
+  timeout: null
+  type: custom
+  upstream_blocks:
+  - dbt/jobs_monitor/models/marts/fct_market_insights
+  uuid: generate_api
 cache_block_output_in_memory: false
 callbacks: []
 concurrency_config: {}

@@ -56,3 +56,10 @@ project_uuid: 84a4bfb957fd4768a4abd6d8c6811a86
 
 dbt_project_full_path: /home/src/jobs_monitor_mage/dbt/jobs_monitor
 dbt_profiles_dir: /home/src/jobs_monitor_mage/dbt/jobs_monitor
+features:
+  automatic_kernel_cleanup: true
+  data_integration_in_batch_pipeline: true
+pipelines:
+  settings:
+    triggers:
+      save_in_code_automatically: true

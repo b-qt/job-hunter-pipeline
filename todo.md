@@ -1,3 +1,7 @@
+![Task Definition](https://img.shields.io/badge/Task%20Definition-Data%20Pipeline-blue?style=for-the-badge&logo=python)
+![Status](https://img.shields.io/badge/Status-In%20Progress-yellow?style=for-the-badge&logo=python)
+
+
 # 1. Data loader (jobs_monitor_mage/data_loaders/load_data__rss.py)
 - [x] Create a data loader that fetches job-related news from RSS feeds (LinkedIn, InfoJobs, Google News).
 - [x] Store the raw data in a structured format (e.g., JSON or CSV) for further processing.

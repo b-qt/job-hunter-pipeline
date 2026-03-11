@@ -8,7 +8,7 @@ sources:
       - name: "{{ env_var('POSTGRES_TABLE') }}" # 🚀 The variable from your .env
         description: "Raw job postings ingested via Mage from LinkedIn and InfoJobs."
         loaded_at_field: scraped_at # Helps with freshness checks
-        
+
         # Add basic bouncer checks right at the source!
         columns:
           - name: link

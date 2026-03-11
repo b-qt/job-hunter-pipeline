@@ -2,7 +2,7 @@ sources:
 - description: Dataframes Mage upstream blocks
   loader: mage
   name: mage_jobs_monitor
-  schema: public
+  schema: job_monitor_schema
   tables:
   - description: Dataframe for block `export_json__database` of the `job_reccommender`
       mage pipeline.

@@ -57,7 +57,7 @@ class JobIngestor:
             "link" : link,
             "published": published,
             "location": location,
-            "platform": site.replace("site:",""),
+            "platform": site.replace("site:","").split("/")[0],
             "scraped_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         }
     

@@ -17,6 +17,7 @@ def export_to_static_api(*args, **kwargs):
         Anything (e.g. data frame, dictionary, array, int, str, etc.)
     """
     data_loc = "data/linkedin_insights.json"
+    result_loc = "data/api_snapshot.json"
     db_path = os.getenv("DB_PATH", data_loc)
     conn = psycopg2.connect(db_path)
     
@@ -24,7 +25,7 @@ def export_to_static_api(*args, **kwargs):
         "SELECT * FROM main.fct_job_postings"
         ).df().to_dict(orient="records")
     
-    with open(data_loc, "w") as f:
+    with open(result_loc, "w") as f:
         json.dump(data, f, indent=4)
     print(f"✅ Static API Snapshot Created")
     conn.close()

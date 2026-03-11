@@ -1,0 +1,14 @@
+triggers:
+- description: null
+  envs: []
+  last_enabled_at: 2026-03-11 05:18:52.119810
+  name: daily execution
+  pipeline_uuid: job_reccommender
+  schedule_interval: '@daily'
+  schedule_type: time
+  settings: null
+  sla: null
+  start_time: 2026-03-11 05:16:00
+  status: active
+  token: 271792b5911a4b71bc5b345886231045
+  variables: {}

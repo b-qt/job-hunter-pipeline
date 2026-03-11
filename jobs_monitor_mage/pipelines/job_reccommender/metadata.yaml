@@ -18,7 +18,8 @@ blocks:
 - all_upstream_blocks_executed: true
   color: null
   configuration: {}
-  downstream_blocks: []
+  downstream_blocks:
+  - dbt/jobs_monitor/models/staging/stg_read_postgres
   executor_config: null
   executor_type: local_python
   has_callback: false
@@ -66,7 +67,8 @@ blocks:
   status: executed
   timeout: null
   type: dbt
-  upstream_blocks: []
+  upstream_blocks:
+  - export_json__database
   uuid: dbt/jobs_monitor/models/staging/stg_read_postgres
 - all_upstream_blocks_executed: true
   color: null
@@ -79,7 +81,7 @@ blocks:
     limit: 1000
   downstream_blocks:
   - dbt/jobs_monitor/models/marts/fct_job_postings
-  - dbt/jobs_monitor/models/marts/agg_market_insights
+  - dbt/jobs_monitor/models/marts/fct_market_insights
   executor_config: null
   executor_type: local_python
   has_callback: false
@@ -92,7 +94,7 @@ blocks:
   upstream_blocks:
   - dbt/jobs_monitor/models/staging/stg_read_postgres
   uuid: dbt/jobs_monitor/models/intermediate/int_jobs_cleaned
-- all_upstream_blocks_executed: false
+- all_upstream_blocks_executed: true
   color: null
   configuration:
     dbt_project_name: dbt/jobs_monitor
@@ -114,13 +116,13 @@ blocks:
   upstream_blocks:
   - dbt/jobs_monitor/models/intermediate/int_jobs_cleaned
   uuid: dbt/jobs_monitor/models/marts/fct_job_postings
-- all_upstream_blocks_executed: false
+- all_upstream_blocks_executed: true
   color: null
   configuration:
     dbt_project_name: dbt/jobs_monitor
-    file_path: dbt/jobs_monitor/models/marts/agg_market_insights.sql
+    file_path: dbt/jobs_monitor/models/marts/fct_market_insights.sql
     file_source:
-      path: dbt/jobs_monitor/models/marts/agg_market_insights.sql
+      path: dbt/jobs_monitor/models/marts/fct_market_insights.sql
       project_path: dbt/jobs_monitor
     limit: 1000
   downstream_blocks: []
@@ -128,14 +130,14 @@ blocks:
   executor_type: local_python
   has_callback: false
   language: sql
-  name: dbt/jobs_monitor/models/marts/agg_market_insights
+  name: dbt/jobs_monitor/models/marts/fct_market_insights
   retry_config: null
   status: executed
   timeout: null
   type: dbt
   upstream_blocks:
   - dbt/jobs_monitor/models/intermediate/int_jobs_cleaned
-  uuid: dbt/jobs_monitor/models/marts/agg_market_insights
+  uuid: dbt/jobs_monitor/models/marts/fct_market_insights
 cache_block_output_in_memory: false
 callbacks: []
 concurrency_config: {}

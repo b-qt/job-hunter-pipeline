@@ -18,8 +18,8 @@ _Create marts that prepare the data for visualization, ensuring that it is struc
 - [x] Document the marts' functionality and the logic behind the transformations for future reference and maintenance in a dbt/models/README.md file.
 
 # 4. Orchestration ()
-- [] Automate the data loader to run on a schedule to ensure the data is updated regularly (e.g., every 6 hours).
-- [] Set up a workflow to run the DBT transformations after the data loader has fetched new data, ensuring that the data pipeline is seamless and efficient.
+- [x] Automate the data loader to run on a schedule to ensure the data is updated regularly (e.g., every 6 hours).
+- [x] Set up a workflow to run the DBT transformations after the data loader has fetched new data, ensuring that the data pipeline is seamless and efficient.
 - [] Implement monitoring and alerting for the data pipeline to quickly identify and resolve any issues that may arise (e.g., data fetching failures, transformation errors).
 - [] Document the orchestration process and any dependencies for future reference and maintenance in    an orchestration/README.md file.
 

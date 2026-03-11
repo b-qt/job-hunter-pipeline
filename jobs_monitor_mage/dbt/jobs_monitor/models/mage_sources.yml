@@ -11,11 +11,4 @@ sources:
       block_uuid: export_json__database
       pipeline_uuid: job_reccommender
     name: job_reccommender_export_json__database
-  - description: Dataframe for block `load_data__rss` of the `job_reccommender` mage
-      pipeline.
-    identifier: mage_job_reccommender_load_data__rss
-    meta:
-      block_uuid: load_data__rss
-      pipeline_uuid: job_reccommender
-    name: job_reccommender_load_data__rss
 version: 2

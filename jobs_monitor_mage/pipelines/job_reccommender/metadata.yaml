@@ -10,7 +10,7 @@ blocks:
   language: python
   name: load_data__rss
   retry_config: null
-  status: executed
+  status: updated
   timeout: null
   type: data_loader
   upstream_blocks: []
@@ -103,7 +103,8 @@ blocks:
       path: dbt/jobs_monitor/models/marts/fct_job_postings.sql
       project_path: dbt/jobs_monitor
     limit: 1000
-  downstream_blocks: []
+  downstream_blocks:
+  - generate_api
   executor_config: null
   executor_type: local_python
   has_callback: false
@@ -154,6 +155,7 @@ blocks:
   type: custom
   upstream_blocks:
   - dbt/jobs_monitor/models/marts/fct_market_insights
+  - dbt/jobs_monitor/models/marts/fct_job_postings
   uuid: generate_api
 cache_block_output_in_memory: false
 callbacks: []

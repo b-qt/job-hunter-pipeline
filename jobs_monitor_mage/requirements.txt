@@ -5,3 +5,10 @@ psycopg2-binary
 fastapi
 uvicorn
 sqlalchemy
+
+matplotlib
+seaborn
+
+streamlit
+
+json

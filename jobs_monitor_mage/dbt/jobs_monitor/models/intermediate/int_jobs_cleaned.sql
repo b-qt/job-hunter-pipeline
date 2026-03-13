@@ -31,7 +31,7 @@ categorized as (
         title,
         link,
         cast(published as date) as published, -- ensure the published field is in date format for consistency and easier querying
-        location,
+        location, -- modify this so linkedin.com/jobs becomes linkedin.com
         platform,
         scraped_at,
         case

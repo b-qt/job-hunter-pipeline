@@ -108,7 +108,7 @@ def load_data_from_api(*args, **kwargs):
                             ]),
         sites = kwargs.get('site', 
                             [
-                                'site:linkedin.com/jobs', 
+                                'site:linkedin.com', 
                                 'site:infojobs.net',
                                 'site:indeed.com',
                                 'site:hiring.cafe'

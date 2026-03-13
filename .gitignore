@@ -13,7 +13,7 @@ mage_data/
 .preferences.yaml
 
 # Data Storage
-data/
+data/linkedin_insights.json
 *.duckdb
 *.db
 logs/

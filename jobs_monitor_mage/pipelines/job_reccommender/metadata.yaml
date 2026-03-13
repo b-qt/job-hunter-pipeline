@@ -10,7 +10,7 @@ blocks:
   language: python
   name: load_data__rss
   retry_config: null
-  status: updated
+  status: executed
   timeout: null
   type: data_loader
   upstream_blocks: []
@@ -143,7 +143,8 @@ blocks:
 - all_upstream_blocks_executed: true
   color: yellow
   configuration: {}
-  downstream_blocks: []
+  downstream_blocks:
+  - push_to_github
   executor_config: null
   executor_type: local_python
   has_callback: false
@@ -157,6 +158,22 @@ blocks:
   - dbt/jobs_monitor/models/marts/fct_market_insights
   - dbt/jobs_monitor/models/marts/fct_job_postings
   uuid: generate_api
+- all_upstream_blocks_executed: true
+  color: yellow
+  configuration: {}
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: push_to_github
+  retry_config: null
+  status: updated
+  timeout: null
+  type: custom
+  upstream_blocks:
+  - generate_api
+  uuid: push_to_github
 cache_block_output_in_memory: false
 callbacks: []
 concurrency_config: {}

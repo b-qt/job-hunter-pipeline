@@ -19,7 +19,7 @@ deduplicates as (
     select
         title,
         link,
-        published,
+        published, 
         location,
         platform,
         scraped_at,

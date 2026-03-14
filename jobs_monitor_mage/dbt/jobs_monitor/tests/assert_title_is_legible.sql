@@ -4,4 +4,5 @@ The title should not contain any special characters or be excessively long, as t
 select
     {{ clean_alphanumeric('title') }} as cleaned_title -- use the clean_alphanumeric macro to remove special characters from the title
 from {{ ref('int_jobs_cleaned') }} -- reference to the intermediate model that contains cleaned and categorized job listings
+where cleaned_title ~ '[^a-zA-Z0-9 áéíóúÁÉÍÓÚñÑ]' -- filter for titles that contain characters other than letters, numbers, spaces, and common Spanish accented characters
 order by published desc -- order the results by the published date in descending order to get the most recent first

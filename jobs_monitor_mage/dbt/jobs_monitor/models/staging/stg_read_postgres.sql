@@ -27,7 +27,7 @@ select
     title,
     link,
     published,
-    split_part(location, '/', 1) as location, --- ensure that linkedin.com/jobs is saved as linkedin.com
+    location, --- ensure that linkedin.com/jobs is saved as linkedin.com
     platform,
-    scraped_at
+    scraped_at 
 from source_data

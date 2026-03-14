@@ -11,7 +11,7 @@ if 'custom' not in globals():
 @custom
 def save_to_json(*args, **kwargs) -> None:
     # 1. Load configurations from io_config.yaml
-    repo_path = get_repo_path()
+    repo_path = get_repo_path() 
     config_path = path.join(repo_path, 'io_config.yaml')
     config_profile = 'default'
     config_loader = ConfigFileLoader(config_path, config_profile)

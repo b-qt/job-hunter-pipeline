@@ -19,7 +19,7 @@ jobs:
           # Trigger your dbt logic
           cd jobs_monitor && dbt build
           # Run the snapshot script
-          python generate_api.py
+          #python generate_api.py
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:

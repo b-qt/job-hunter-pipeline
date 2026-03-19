@@ -7,3 +7,7 @@ streamlit
 
 # Database driver (Mage has psycopg2, but -binary is safer for some environments)
 psycopg2-binary
+
+
+# Dotenv
+python-dotenv

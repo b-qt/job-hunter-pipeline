@@ -11,7 +11,7 @@ import pandas as pd
 import json
 
 import subprocess
-#from datetime import datetime
+from datetime import datetime
 
 os.environ['POSTGRES_HOST'] = '127.0.0.1'
 
@@ -165,6 +165,10 @@ def main():
             
             success = run_pipeline(kws, locs, sts, days)
             if success:
+                st.cache_data.clear()
+                jobs_df, insights_df = load_data()
+                last_updated_dt = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                st.sidebar.caption(f"📅 Data last updated: {last_updated_dt}")
                 st.rerun()
 
     if jobs_df is None or jobs_df.empty:

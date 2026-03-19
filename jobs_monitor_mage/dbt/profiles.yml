@@ -1,9 +1,27 @@
 # https://docs.getdbt.com/docs/core/connect-data-platform/profiles.yml
 
-base:
-  outputs:
+#base:
+#  outputs:
+#
+#    dev:
+#      type: duckdb
 
-    dev:
-      type: duckdb
+#  target: dev
 
+
+# Create a dbt profile for the jobs_monitor_mage project database connections
+
+jobs_monitor:
   target: dev
+  outputs:
+    dev:
+      type: postgres
+      dbname: "{{ env_var('POSTGRES_DB', 'job_monitor') }}"
+      host: "{{ env_var('POSTGRES_HOST', 'jobs_monitor_db') }}"
+      port: "{{ env_var('POSTGRES_PORT', '5432') | int }}" 
+      user: "{{ env_var('POSTGRES_USER', 'username') }}"
+      pass: "{{ env_var('POSTGRES_PASSWORD', 'password') }}"
+      schema:   "{{ env_var('POSTGRES_SCHEMA', 'job_monitor_schema') }}"
+      threads: 4
+
+#

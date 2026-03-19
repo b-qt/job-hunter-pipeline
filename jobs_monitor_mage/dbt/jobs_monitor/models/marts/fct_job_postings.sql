@@ -11,7 +11,7 @@ with platform_categorized as (
         title,
         link,
         published,
-        location,
+        area,
         platform,
         scraped_at,
         work_mode, -- categorized work mode (Remote, Onsite, Other/Hybrid)
@@ -23,7 +23,7 @@ select
     title,
     link,
     published,
-    location,
+    area,
     platform,
     scraped_at,
     work_mode, -- categorized work mode (Remote, Onsite, Other/Hybrid)

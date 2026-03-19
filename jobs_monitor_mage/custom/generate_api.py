@@ -5,13 +5,20 @@ from mage_ai.settings.repo import get_repo_path
 from mage_ai.io.config import ConfigFileLoader
 from os import path
 
+import sqlalchemy
+import pandas as pd
+import psycopg2
+print(f"DEBUG: SQLAlchemy Version: {sqlalchemy.__version__}")
+print(f"DEBUG: Pandas Version: {pd.__version__}")
+print(f"DEBUG: Psycopg2 Version: {psycopg2.__version__}")
+
 if 'custom' not in globals():
     from mage_ai.data_preparation.decorators import custom
 
 @custom
 def save_to_json(*args, **kwargs) -> None:
     # 1. Load configurations from io_config.yaml
-    repo_path = get_repo_path() 
+    repo_path = get_repo_path() or os.getenv('MAGE_REPO_PATH')
     config_path = path.join(repo_path, 'io_config.yaml')
     config_profile = 'default'
     config_loader = ConfigFileLoader(config_path, config_profile)
@@ -21,10 +28,10 @@ def save_to_json(*args, **kwargs) -> None:
         return os.getenv(key) or config_loader.config.get(key) or default
 
     # 2. Extract Database Parameters
-    user     = get_setting('POSTGRES_USER')
-    password = get_setting('POSTGRES_PASSWORD')
-    host     = get_setting('POSTGRES_HOST')
-    port     = get_setting('POSTGRES_PORT', '5432')
+    user     = get_setting('POSTGRES_USER', 'username')
+    password = get_setting('POSTGRES_PASSWORD', 'password')
+    host     = get_setting('POSTGRES_HOST','127.0.0.1')
+    port     = get_setting('POSTGRES_PORT', 5432)
     database = get_setting('POSTGRES_DBNAME') or get_setting('POSTGRES_DB')
     
     # Default settings for your schema and tables
@@ -33,53 +40,35 @@ def save_to_json(*args, **kwargs) -> None:
     fct_insights_table = get_setting('FACT_MARKET_INSIGHTS', 'fct_market_insights')
 
     # 3. Create Connection
-    connection_string = f"postgresql://{user}:{password}@{host}:{port}/{database}"
+    connection_string = f"postgresql+psycopg2://{user}:{password}@{host}:{port}/{database}"
     engine = create_engine(connection_string)
 
     # 4. Define target directory (Absolute path for Mage Docker)
-    target_dir = "/home/src/data"
+    #target_dir = "/home/src/data"
+    project_root = os.path.dirname(repo_path)
+    target_dir = os.path.join(project_root, 'data')
     os.makedirs(target_dir, exist_ok=True)
 
     try:
-        with engine.connect() as conn:
-            # --- AUTO-DISCOVERY LOGIC ---
-            # Check if fct_jobs exists in the provided schema
-            check_sql = text(f"""
-                SELECT schemaname FROM pg_tables 
-                WHERE tablename = :tname AND schemaname = :sname
-            """)
-            res = conn.execute(check_sql, {"tname": fct_jobs_table, "sname": initial_schema}).fetchone()
+        conn = psycopg2.connect(
+            host=host,
+            port=port,
+            user=user,
+            password=password,
+            database=database
+        )
 
-            if res:
-                final_schema = initial_schema
-            else:
-                print(f"⚠️ Table {fct_jobs_table} not found in '{initial_schema}'. Searching database...")
-                # Find the actual schema where dbt put the table
-                find_sql = text("SELECT schemaname FROM pg_tables WHERE tablename = :tname LIMIT 1")
-                actual = conn.execute(find_sql, {"tname": fct_jobs_table}).fetchone()
-                
-                if actual:
-                    final_schema = actual[0]
-                    print(f"💡 Found it! Using schema: '{final_schema}'")
-                else:
-                    # If we still can't find it, list all tables to the log for debugging
-                    all_tabs = conn.execute(text("SELECT schemaname, tablename FROM pg_tables WHERE schemaname NOT IN ('pg_catalog', 'information_schema')")).fetchall()
-                    print("--- 🔍 Current Database Tables ---")
-                    for s, t in all_tabs: print(f"{s}.{t}")
-                    raise ValueError(f"❌ Table {fct_jobs_table} does not exist in the database.")
+        def fetch_to_df(tablename):
+            query = f'SELECT * FROM "{initial_schema}"."{tablename}"'
+            with conn.cursor() as cur:
+                cur.execute(query)
+                rows=cur.fetchall()
+                colnames = [desc[0] for desc in cur.description]
 
-            # 5. Fetch Data with the Corrected Schema
-            print(f"📡 Exporting {final_schema}.{fct_jobs_table} and {final_schema}.{fct_insights_table}...")
-            
-            df_jobs = pd.read_sql_query(
-                text(f'SELECT * FROM "{final_schema}"."{fct_jobs_table}"'), 
-                conn
-            )
-            
-            df_insights = pd.read_sql_query(
-                text(f'SELECT * FROM "{final_schema}"."{fct_insights_table}"'), 
-                conn
-            )
+                return pd.DataFrame(rows, columns=colnames)
+        df_jobs = fetch_to_df(fct_jobs_table)
+        df_insights = fetch_to_df(fct_insights_table)
+
 
         # 6. Save to JSON files
         jobs_path = path.join(target_dir, 'jobs.json')

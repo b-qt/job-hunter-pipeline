@@ -23,7 +23,7 @@ The ingestor implements a strict `time_span` filter. It calculates a `cutoff_dat
 These variables are set in the `load_data_from_api` block and can be overridden via Mage UI `kwargs`:
 
 *   **`keywords`**: List of job titles (e.g., `['Data Engineer', 'Analytics Engineer']`).
-*   **`location`**: Target regions or companies (e.g., `['Bilbao', 'IDOM']`).
+*   **`area`**: Target regions or companies (e.g., `['Bilbao', 'IDOM']`).
 *   **`site`**: Targeted job boards using Google's `site:` operator.
 *   **`time_span`**: How many days back to look (Default: `10`).
 

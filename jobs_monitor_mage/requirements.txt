@@ -1,14 +1,9 @@
+# Libraries NOT included in the base Mage image
+dbt-postgres==1.8.2
 feedparser
-bs4
-requests
-psycopg2-binary
-fastapi
-uvicorn
-sqlalchemy
-
-matplotlib
-seaborn
-
+beautifulsoup4
+python-dotenv
 streamlit
 
-json
+# Database driver (Mage has psycopg2, but -binary is safer for some environments)
+psycopg2-binary

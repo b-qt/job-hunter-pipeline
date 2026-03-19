@@ -4,7 +4,7 @@ services:
     container_name: jobs_monitor_orchestrator
     ports:
       - "6789:6789"
-      - "8080:8080"
+      #- "8080:8080"
     volumes:
       - .:/home/src
     env_file:
@@ -13,6 +13,9 @@ services:
       USER_CODE_PATH: /home/src/jobs_monitor_mage
       # Set the data path as wee so there isn't a mage_data directory
       MAGE_DATA_PATH: /home/src/jobs_monitor_mage/data
+      MAGE_UID: 1000
+      MAGE_GID: 1000
+
     depends_on:
       - data-controller
   data-controller:
@@ -23,6 +26,8 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
-      - "5432:5432"
+      - "127.0.0.1:5432:5432"
     #volumes:
     #  - postgres_data:/var/lib/postgresql/data
+
+# start the project using docker compose up -d 

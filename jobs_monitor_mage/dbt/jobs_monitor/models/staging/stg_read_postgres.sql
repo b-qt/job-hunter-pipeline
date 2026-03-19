@@ -16,18 +16,14 @@
 {{ config(materialized='view') }} -- performance and storage optimization.
 
 with source_data as (
-    select *
-    from {{ source(
-        'internal_postgres',
-        env_var('POSTGRES_TABLE')
-    )}}
+    select * from {{ env_var('POSTGRES_DB', 'job_monitor') }}.{{ env_var('POSTGRES_SCHEMA', 'job_monitor_schema') }}.{{ env_var('POSTGRES_TABLE', 'job_postings') }}
 )
 
 select
     title,
     link,
     published,
-    location, --- ensure that linkedin.com/jobs is saved as linkedin.com
+    area,
     platform,
     scraped_at 
 from source_data

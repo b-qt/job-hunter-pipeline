@@ -10,6 +10,7 @@ import feedparser
 
 from bs4 import BeautifulSoup
 import urllib
+from mage_ai.settings.repo import get_repo_path
 
 
 if 'data_loader' not in globals():
@@ -19,26 +20,26 @@ if 'test' not in globals():
 
 
 class JobIngestor:
-    def __init__(self, keywords, locations, sites, time_span=10):
+    def __init__(self, keywords,  areas, sites, time_span=10):
         self.keywords = keywords
-        self.locations = locations
+        self. areas =  areas
         self.sites = sites
         self.time_span = time_span
         self.seen_entries = set()
 
-    def _generate_rss_url(self, location, site) -> str:
+    def _generate_rss_url(self, area, site) -> str:
         site = site.replace("site:","").split("/")[0]
         base = "https://news.google.com/rss/search?q="
         cutoff_date = (datetime.now() - timedelta(days=self.time_span)).strftime("%Y-%m-%d")
 
         for keyword in self.keywords:
-            query = f'"{keyword}" "{location}" jobs site:{site}'
+            query = f'"{keyword}" "{ area}" jobs site:{site}'
             encoded_query = urllib.parse.quote_plus(query).replace("%20","+")
 
             yield f"{base}{encoded_query}&hl=es&gl=ES&ceid=ES:es"
             yield f"{base}{encoded_query}&hl=en&gl=ES&ceid=ES:en"
 
-    def _parse_entry(self, entry, location, site) -> dict | None:
+    def _parse_entry(self, entry, area, site) -> dict | None:
         title = entry.get("title", "Unknown")
         link = entry.get("link", "")
         published_raw = entry.published
@@ -56,7 +57,7 @@ class JobIngestor:
             "title": title,
             "link" : link,
             "published": published,
-            "location": location,
+            " area": area,
             "platform": site.replace("site:","").split("/")[0],
             "scraped_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         }
@@ -65,8 +66,8 @@ class JobIngestor:
         results = []
         
         for site in self.sites:
-            for location in self.locations:
-                for url in self._generate_rss_url(location, site):
+            for area in self. areas:
+                for url in self._generate_rss_url( area, site):
                     try:
                         time.sleep(1) # Error handling for --- API rate limiting
                         feed = feedparser.parse(url)
@@ -77,7 +78,7 @@ class JobIngestor:
                         for entry in feed.entries:
                             link = entry.link
                             if link not in self.seen_entries:
-                                parsed = self._parse_entry(entry, location, site)
+                                parsed = self._parse_entry(entry, area, site)
 
                                 if parsed:
                                     results.append(parsed)
@@ -97,7 +98,7 @@ def load_data_from_api(*args, **kwargs):
                                 'Data Engineer',
                                 'Data Practitioner'
                             ]),
-        locations = kwargs.get('location', 
+         areas = kwargs.get(' area', 
                             [
                                 'Bizkaia', 
                                 'Zamudio', 
@@ -117,13 +118,16 @@ def load_data_from_api(*args, **kwargs):
 
     data = ingestor.execute_refinery()
     if not data:
-        return pd.DataFrame(columns=["title","link","published","location","platform","scraped_at"])
+        return pd.DataFrame(columns=["title","link","published"," area","platform","scraped_at"])
     df = pd.DataFrame(data)
 
-    json_path = "/home/src/data/linkedin_insights.json"
+    json_path = "data/linkedin_insights.json"
+    project_root = os.path.dirname(get_repo_path())
+    target_dir = os.path.join(project_root, json_path)
+    
     try: # Error handling for --- Environment issues 
-        os.makedirs(os.path.dirname(json_path), exist_ok=True)
-        df.to_json(json_path, orient="records", indent=4, force_ascii=False)
+        os.makedirs(os.path.dirname(target_dir), exist_ok=True)
+        df.to_json(target_dir, orient="records", indent=4, force_ascii=False)
         print(f"✅ Successfully captured {len(df)} items.")
     except Exception as e:
         print(f"❌ Storage error: {e}") 
@@ -137,7 +141,7 @@ def test_output(output, *args) -> None:
     assert isinstance(output, pd.DataFrame), "Output should be a pandas Dataframe"
     assert len(output) > 1 , 'The dataframe is empty, no data collected'
     # Check for expected columns
-    expected_columns = {"title", "link", "published", "location", "platform", "scraped_at"}
+    expected_columns = {"title", "link", "published", " area", "platform", "scraped_at"}
     assert expected_columns.issubset(set(output.columns)), f"Missing expected columns: {expected_columns - set(output.columns)}"
     # Check for non-empty values in key columns
     for col in ["title", "link", "published"]:

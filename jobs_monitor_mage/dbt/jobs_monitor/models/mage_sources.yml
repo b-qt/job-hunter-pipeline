@@ -4,7 +4,11 @@ sources:
   name: mage_jobs_monitor
   schema: job_monitor_schema
   tables:
-  - description: Dataframe for block `export_json__database` of the `job_reccommender`
+  - config:
+      meta:
+        block_uuid: export_json__database
+        pipeline_uuid: job_reccommender
+    description: Dataframe for block `export_json__database` of the `job_reccommender`
       mage pipeline.
     identifier: mage_job_reccommender_export_json__database
     meta:

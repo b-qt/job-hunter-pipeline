@@ -220,19 +220,27 @@ def main():
 
     # --- Table Sections ---
     st.subheader("💡 Market Insights")
-    st.dataframe(insights_df, width="stretch")
+    st.dataframe(insights_df[["platform","work_mode","job_level","job_count"]],
+                 column_config={
+                     "platform":st.column_config.TextColumn("Platform"),
+                     "work_mode":st.column_config.TextColumn("Work Format"),
+                     "job_level":st.column_config.TextColumn("Seniority"),
+                     "job_count":st.column_config.NumberColumn("Count")
+                     }, 
+                 width="content")
 
     st.subheader("🔍 Latest Listings")
     
     # Format dates
-    filtered_jobs["published"] = pd.to_datetime(filtered_jobs["published"], errors="coerce")
+    filtered_jobs["published"] = filtered_jobs["published"]
     filtered_jobs = filtered_jobs.sort_values("published", ascending=False)
 
     st.dataframe(
         filtered_jobs[["title", "platform", loc_col, "published", "link"]],
         column_config={
             "link": st.column_config.LinkColumn("Apply", display_text="View Job"),
-            "published": st.column_config.DateColumn("Date")
+            "published": st.column_config.DateColumn("Date"),
+            "area": st.column_config.TextColumn("Region")
         },
         hide_index=True,
         width="stretch"

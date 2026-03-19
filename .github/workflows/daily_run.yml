@@ -1,27 +1,27 @@
-name: Run Job Refinery
-on:
-  schedule:
-    - cron: '0 */6 * * *' # Every 6 hours
-  workflow_dispatch: # Manual trigger
+#name: Run Job Refinery
+#on:
+#  schedule:
+#    - cron: '0 */6 * * *' # Every 6 hours
+#  workflow_dispatch: # Manual trigger
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v4
-      - name: Install dependencies
-        run: pip install mage-ai dbt-duckdb pandas
-      - name: Run Refinery
-        run: |
-          ls 
+#jobs:
+#  build:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v4
+#      - name: Set up Python
+#        uses: actions/setup-python@v4
+#      - name: Install dependencies
+#        run: pip install mage-ai dbt-duckdb pandas
+#      - name: Run Refinery
+#        run: |
+#          ls 
           # Trigger your dbt logic
-          cd jobs_monitor && dbt build
-          # Run the snapshot script
-          #python generate_api.py
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs # Serves your JSON file
+#          cd jobs_monitor && dbt build
+#          # Run the snapshot script
+#          #python generate_api.py
+#      - name: Deploy to GitHub Pages
+#        uses: peaceiris/actions-gh-pages@v3
+#        with:
+#          github_token: ${{ secrets.GITHUB_TOKEN }}
+#          publish_dir: ./docs # Serves your JSON file

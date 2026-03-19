@@ -14,4 +14,3 @@ python-dotenv
 
 pandas
 sqlalchemy
-mage-ai
